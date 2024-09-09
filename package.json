@@ -19,6 +19,7 @@
   "homepage": "https://github.com/starling-home-hub/camera-streamer#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "dotenv": "^16.4.5",
     "vue": "^2.6.11"
   },
   "devDependencies": {

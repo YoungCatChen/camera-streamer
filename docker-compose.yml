@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - HUB_IP=${HUB_IP}
+      - HUB_API_KEY=${HUB_API_KEY}
+      - VUE_APP_HUB_IP=${HUB_IP}
+      - VUE_APP_HUB_API_KEY=${HUB_API_KEY}  
+    env_file:
+      - .env

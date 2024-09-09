@@ -11,8 +11,11 @@
 </template>
 
 <script>
-  const HUB_IP = '192.168.4.141';
-  const HUB_API_KEY = 'MY79fqsyw0qAhKs2uYAqBFB9';
+  const HUB_IP = process.env.VUE_APP_HUB_IP;
+  const HUB_API_KEY = process.env.VUE_APP_HUB_API_KEY;
+
+  console.log('HUB_IP:', HUB_IP);
+  console.log('HUB_API_KEY:', HUB_API_KEY);
 
   const axios = require('axios');
 
