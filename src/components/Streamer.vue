@@ -11,11 +11,11 @@
 </template>
 
 <script>
+  console.log(process.env);
   const HUB_IP = process.env.VUE_APP_HUB_IP;
+  const HUB_PORT = process.env.VUE_APP_HUB_PORT || '3080';
   const HUB_API_KEY = process.env.VUE_APP_HUB_API_KEY;
-
-  console.log('HUB_IP:', HUB_IP);
-  console.log('HUB_API_KEY:', HUB_API_KEY);
+  const CAMERA_NAME_WHITELIST_REGEX = process.env.VUE_APP_CAMERA_NAME_WHITELIST_REGEX || '.';
 
   const axios = require('axios');
 
@@ -40,7 +40,10 @@
         }
 
         console.log('Got SDC Nest devices:', devices.devices);
-        let cameras = devices.devices.filter(device => device.type == 'cam' && device.supportsStreaming);
+        let cameras = devices.devices.filter(
+            device => device.type == 'cam' &&
+            device.supportsStreaming &&
+            device.name.match(CAMERA_NAME_WHITELIST_REGEX));
         if (cameras.length == 0) {
           console.log('No cameras found.');
           return;
@@ -111,7 +114,7 @@
         this.cameras.find(camera => camera.id == id).muted = false;
       },
       makeEndpoint(endpoint, query) {
-        return 'http://' + HUB_IP + ':3080/api/connect/v1/' + endpoint + '?key=' + HUB_API_KEY + (query ? '&' + query : '');
+        return `http://${HUB_IP}:${HUB_PORT}/api/connect/v1/${endpoint}?key=${HUB_API_KEY}&${query || ''}`;
       }
     }
   }
@@ -120,7 +123,7 @@
 <style scoped>
   .main {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
     grid-gap: 1rem;
   }
 

@@ -1,6 +1,6 @@
 services:
   app:
-    platform: linux/amd64  # Specify the platform  
+    platform: linux/arm64  # Specify the platform
     build:
       context: .
       dockerfile: Dockerfile
@@ -11,9 +11,9 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
-      - HUB_IP=${HUB_IP}
-      - HUB_API_KEY=${HUB_API_KEY}
       - VUE_APP_HUB_IP=${HUB_IP}
-      - VUE_APP_HUB_API_KEY=${HUB_API_KEY}  
+      - VUE_APP_HUB_PORT=${HUB_PORT}
+      - VUE_APP_HUB_API_KEY=${HUB_API_KEY}
+      - VUE_APP_CAMERA_NAME_WHITELIST_REGEX=${CAMERA_NAME_WHITELIST_REGEX}
     env_file:
       - .env
