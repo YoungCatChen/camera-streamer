@@ -14,6 +14,7 @@
   console.log(process.env);
   const HUB_IP = process.env.VUE_APP_HUB_IP;
   const HUB_PORT = process.env.VUE_APP_HUB_PORT || '3080';
+  const HUB_URL = process.env.VUE_APP_HUB_URL || `http://${HUB_IP}:${HUB_PORT}`;
   const HUB_API_KEY = process.env.VUE_APP_HUB_API_KEY;
   const CAMERA_NAME_WHITELIST_REGEX = process.env.VUE_APP_CAMERA_NAME_WHITELIST_REGEX || '.';
 
@@ -114,7 +115,7 @@
         this.cameras.find(camera => camera.id == id).muted = false;
       },
       makeEndpoint(endpoint, query) {
-        return `http://${HUB_IP}:${HUB_PORT}/api/connect/v1/${endpoint}?key=${HUB_API_KEY}&${query || ''}`;
+        return `${HUB_URL}/api/connect/v1/${endpoint}?key=${HUB_API_KEY}&${query || ''}`;
       }
     }
   }

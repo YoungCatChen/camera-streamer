@@ -11,9 +11,10 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
-      - VUE_APP_HUB_IP=${HUB_IP}
-      - VUE_APP_HUB_PORT=${HUB_PORT}
-      - VUE_APP_HUB_API_KEY=${HUB_API_KEY}
-      - VUE_APP_CAMERA_NAME_WHITELIST_REGEX=${CAMERA_NAME_WHITELIST_REGEX}
+      - VUE_APP_HUB_URL=${VUE_APP_HUB_URL}
+      - VUE_APP_HUB_IP=${VUE_APP_HUB_IP}
+      - VUE_APP_HUB_PORT=${VUE_APP_HUB_PORT}
+      - VUE_APP_HUB_API_KEY=${VUE_APP_HUB_API_KEY}
+      - VUE_APP_CAMERA_NAME_WHITELIST_REGEX=${VUE_APP_CAMERA_NAME_WHITELIST_REGEX}
     env_file:
       - .env
