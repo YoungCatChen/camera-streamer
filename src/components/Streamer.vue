@@ -11,12 +11,18 @@
 </template>
 
 <script>
+  const urlParams = new URLSearchParams(window.location.search);
+  console.log(urlParams);
   console.log(process.env);
-  const HUB_IP = process.env.VUE_APP_HUB_IP;
-  const HUB_PORT = process.env.VUE_APP_HUB_PORT || '3080';
-  const HUB_URL = process.env.VUE_APP_HUB_URL || `http://${HUB_IP}:${HUB_PORT}`;
-  const HUB_API_KEY = process.env.VUE_APP_HUB_API_KEY;
-  const CAMERA_NAME_WHITELIST_REGEX = process.env.VUE_APP_CAMERA_NAME_WHITELIST_REGEX || '.';
+  function getSetting(queryName, envName, defaultValue) {
+    return urlParams.get(queryName) || process.env[envName] || defaultValue;
+  }
+
+  const HUB_IP = getSetting('hub_ip', 'VUE_APP_HUB_IP');
+  const HUB_PORT = getSetting('hub_port', 'VUE_APP_HUB_PORT', '3080');
+  const HUB_URL = getSetting('hub_url', 'VUE_APP_HUB_URL', `http://${HUB_IP}:${HUB_PORT}`);
+  const HUB_API_KEY = getSetting('hub_api_key', 'VUE_APP_HUB_API_KEY', '');
+  const CAMERA_NAME_WHITELIST_REGEX = getSetting('camera_name_whitelist_regex', 'VUE_APP_CAMERA_NAME_WHITELIST_REGEX', '.');
 
   const axios = require('axios');
 
